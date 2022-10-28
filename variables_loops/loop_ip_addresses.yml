@@ -1,0 +1,13 @@
+---
+
+- name: "Loop test"
+  hosts: usa
+  gather_facts: true
+  gather_subset: all
+  connection: network_cli
+
+  tasks:
+    - name: "Loop through IP addresses on the routers"
+      debug:
+        msg: "{{ ansible_facts['net_hostname'] }} has an IP address of {{ item }} configured."
+      loop: "{{ ansible_net_all_ipv4_addresses }}"
