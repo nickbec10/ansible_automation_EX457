@@ -1,3 +1,8 @@
+## router bgp {{ BGP.ASN }}
+## {% for nbor in BGP.peers %}
+## neighbor {{ nbor.neighbor }} remote-as {{ nbor.peer_asn }}
+## {% endfor %}
+
 router bgp {{ BGP.ASN }}
 {% for nbor in BGP.peers %}
 {% if nbor.peer_asn == "65002" %}
