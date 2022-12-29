@@ -14,7 +14,7 @@
           - router ospf 19
       register: my_output
 
-    - name: run commands that require answering a prompt
+    - name: save configuration
       ios_command:
         commands:
           - command: 'write memory'
