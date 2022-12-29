@@ -21,4 +21,5 @@
             prompt: 'Overwrite the previous NVRAM configuration?[confirm]'
             answer: 'yes'
     - name: DEBUG
-      debug: var=my_output
+      ansible.builtin.debug:
+        var: my_output
