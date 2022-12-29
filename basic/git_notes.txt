@@ -1,0 +1,60 @@
+# Git Notes
+# Set global username and email
+git config --global user.name "nickbec10"
+git config --global user.email github@atomictinker.com
+
+# First commit
+git commit -m "updated basic/play.yml to save config" basic/play.yml
+cd basic
+git push -u origin main
+git status
+git log
+git add basic/play.yml
+
+# Second commit
+git commit -m "updated basic/play.yml task name" basic/play.yml
+git log
+git diff basic/play.yml
+git status
+git add basic/play.yml
+git status
+git diff basic/play.yml
+
+# Third commit
+git commit -m "updated basic/play.yml save task name" basic/play.yml
+git diff basic/play.yml
+git status
+git log
+
+# Go back to a previous second commit but creates detached HEAD
+git checkout 0a949128e96866fcd19f47f272a783ec0345f27d
+git log
+git checkout HEAD
+git status
+
+# Made some changes to play.yml (on previous commit - detached HEAD)
+git add play.yml
+git status
+git diff play.yml
+
+# Commit on detached HEAD
+git commit -m "updated basic/play.yml save task name" play.yml
+git status
+git log
+
+# Fix detached HEAD (create tmp branch, go back to main and merge tmp)
+git branch tmp
+git checkout main
+git merge tmp
+git status
+git log
+
+# Full commit to finish merge
+git commit -m "Merge changes from detatched head"
+
+# Push to main repo on Github
+git push -u origin main
+git status
+
+# Run playbook with morth inventory limit
+ansible-playbook play.yml --limit north
