@@ -14,4 +14,10 @@
           - router ospf 19
       register: my_output
 
+    - name: run commands that require answering a prompt
+      ios_command:
+        commands:
+          - command: 'write memory'
+            prompt: 'Overwrite the previous NVRAM configuration?[confirm]'
+            answer: 'yes'
     - debug: var=my_output
