@@ -1,20 +1,20 @@
 ---
 
-- name: MY FIRST PLAYBOOK
+- name: FIRST PLAYBOOK
   hosts: cisco
   gather_facts: false
   connection: network_cli
 
   tasks:
-    - name: ospf configuration
+    - name: OSPF CONFIGURATION
       cisco.ios.ios_config:
-        lines: 
+        lines:
           - router-id 33.44.88.22
         parents:
           - router ospf 19
       register: my_output
 
-    - name: run commands that require answering a prompt
+    - name: SAVE CONFIGURATION
       ios_command:
         commands:
           - command: 'write memory'
