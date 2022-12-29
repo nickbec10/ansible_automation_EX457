@@ -15,9 +15,10 @@
       register: my_output
 
     - name: SAVE CONFIGURATION
-      ios_command:
+      cisco.ios.ios_command:
         commands:
           - command: 'write memory'
             prompt: 'Overwrite the previous NVRAM configuration?[confirm]'
             answer: 'yes'
-    - debug: var=my_output
+    - name: DEBUG
+      debug: var=my_output
