@@ -1,13 +1,13 @@
 ---
 
 - name: "NTP Config Playbook"
-  hosts: usa 
+  hosts: usa
   gather_facts: false
   connection: network_cli
 
   tasks:
   - name: "Loop through and configure NTP on routers"
-    vars: 
+    vars:
       myntpservers:
         - "1.1.1.1"
         - "2.2.2.2"

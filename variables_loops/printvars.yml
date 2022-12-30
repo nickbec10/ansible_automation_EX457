@@ -2,9 +2,9 @@
 
 - name: "Printing some group variables"
   hosts: all
-  gather_facts: no
+  gather_facts: false
 
   tasks:
     - name: "Display var stuff"
-      debug:
-        msg: "{{ hostvars[ansible_host] }}" 
+      ansible.builtin.debug:
+        msg: "{{ hostvars[ansible_host] }}"

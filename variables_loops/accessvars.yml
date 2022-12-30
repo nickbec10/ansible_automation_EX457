@@ -2,9 +2,9 @@
 
 - name: "Printing some group variables"
   hosts: uk
-  gather_facts: no
+  gather_facts: false
 
   tasks:
     - name: "Display var stuff"
-      debug:
+      ansible.builtin.debug:
         msg: "This device has a first ospf network of {{ hostvars[ansible_host]['ospf']['networks'][0] }}"
