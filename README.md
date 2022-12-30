@@ -1,5 +1,7 @@
 # ansible_automation_EX457
 This guide will walk through setting up GNS3 on and Ubuntu 20.04 host in GCP
+
+
 ### Create Ubuntu 20.04 host and enable nested virtualization on GCP
 Create a boot disk from a public image
 ```
@@ -18,6 +20,8 @@ Open ports used to connect to GNS3
 ```
 gcloud compute firewall-rules create gns3-inbound --description="open up the ports used by gns3" --direction=INGRESS --priority=1000 --network=default --action=ALLOW --rules=tcp:3080,tcp:5000-10000 --source-ranges=0.0.0.0/0
 ```
+
+
 ### Install GNS3 on Ubuntu host
 Update and upgrade all the installed packages
 ```
@@ -47,10 +51,10 @@ Install all required software
 sudo apt update
 sudo apt install gns3-server gns3-iou qemu-kvm docker-ce net-tools uml-utilities iptables-persistent -y
 ```
-
-#Check KVM
+Check KVM
+```
 kvm-ok
-
+```
 Add gns3 user and to the required groups
 ```
 sudo useradd gns3 --create-home
@@ -111,6 +115,7 @@ sudo tcpdump -i tap0  -s 1500
 sudo tcpdump -i ens4  -s 1500 port not 22
 ```
 
+
 ### Configure GNS3
 Now you can log into GNS3 and configure the installation
 1. Go to Edit > Preferences and then click on Server
@@ -125,6 +130,7 @@ SSH to each router inside GNS3 to get SSH keys stored
 ```
 ssh -o KexAlgorithms=+diffie-hellman-group-exchange-sha1 -c aes256-cbc developer@10.0.0.10
 ```
+
 
 ### Basic config for routers
 ```
