@@ -1,6 +1,6 @@
 ---
 
-- name: "Gather Facts"
+- name: "Simple gather facts with all subset on usa hosts"
   hosts: usa
   gather_facts: true
   gather_subset:
@@ -8,6 +8,6 @@
   connection: network_cli
 
   tasks:
-    - name: "Task 1"
+    - name: "Gathering facts"
       ansible.builtin.debug:
         msg: "{{ ansible_facts }}"
