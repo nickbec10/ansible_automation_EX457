@@ -14,7 +14,7 @@
         - "2001:db8:aaaa:bbbb::2/48"
         - "172.16.44.24/8"
         - "42.77.23.24/24"
-    debug:
-      msg: 
+    ansible.builtin.debug:
+      msg:
         - "{{ myip | ansible.utils.ipaddr('address') }}"
         - "{{ myip | ansible.utils.ipaddr('network') }}"

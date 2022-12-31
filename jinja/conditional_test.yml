@@ -3,12 +3,13 @@
 - name: "Conditional test"
   hosts: usa
   gather_facts: true
-  gather_subset: all
+  gather_subset:
+    - all
   connection: network_cli
 
   tasks:
     - name: "Task 1"
-      debug: 
+      ansible.builtin.debug:
         msg: "{{ item['key'] }} has a value of {{ item['value']['ipv4'][0]['address'] }}"
       loop: "{{ ansible_net_interfaces | dict2items }}"
       # when: item['value']['lineprotocol'] == "up"
