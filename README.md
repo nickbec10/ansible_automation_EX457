@@ -114,6 +114,20 @@ sudo iptables -t nat -vxnL
 sudo tcpdump -i tap0  -s 1500
 sudo tcpdump -i ens4  -s 1500 port not 22
 ```
+Install Python 3.10, Pip and Ansible
+```
+sudo apt install software-properties-common -y
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt install python3.10
+sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 1
+sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.10 2
+sudo update-alternatives --config python3
+python3 --version
+sudo apt install python3-pip
+pip --version
+pip install ansible paramiko ansible-pylibssh netaddr
+ansible --version
+```
 
 
 ### Configure GNS3
@@ -135,6 +149,8 @@ ssh -o KexAlgorithms=+diffie-hellman-group-exchange-sha1 -c aes256-cbc developer
 ### Basic config for routers
 ```
 conf t
+no service call-home 
+no call-home
 hostname R3
 int e1/3
 ip address 10.0.0.12 255.255.255.0
@@ -150,3 +166,27 @@ exit
 exit
 wr mem
 ```
+
+### Basic config for switches
+```
+conf t
+hostname S1
+vlan 100
+exit
+int vlan 100
+ip address 10.0.0.20 255.255.255.0
+no shut
+int range gi1/0 - 3
+switchport access vlan 100
+ip domain-name gns3.local
+crypto key gen rsa mod 1024
+username developer priv 15 secret C1sco12345
+enable secret C1sco12345
+line vty 0 4
+login local
+transport input ssh
+exit
+exit
+wr mem
+```
+
