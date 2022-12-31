@@ -1,7 +1,7 @@
 ---
 
 - name: "Test Filter"
-  hosts: "172.16.26.55"
+  hosts: "10.0.0.10"
 
   tasks:
   - name: "Testing some filter stuff"
@@ -13,5 +13,5 @@
       uk_prefixes:
         - "192.168.0.0/24"
         - "10.0.0.0/8"
-    debug:
+    ansible.builtin.debug:
       msg: "{{ usa_prefixes | symmetric_difference(uk_prefixes) }}"

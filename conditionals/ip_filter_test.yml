@@ -1,7 +1,7 @@
 ---
 
 - name: "Test Filter"
-  hosts: "172.16.26.55"
+  hosts: "10.0.0.10"
 
   tasks:
   - name: "IP addr filter test"
@@ -14,7 +14,7 @@
         - "2001:db8:aaaa:bbbb::2/48"
         - "172.16.44.24/8"
         - "42.77.23.24/24"
-    debug:
-      msg: 
+    ansible.builtin.debug:
+      msg:
         - "{{ myip | ansible.utils.ipaddr('address') }}"
         - "{{ myip | ansible.utils.ipaddr('network') }}"
