@@ -1,0 +1,13 @@
+---
+
+- name: "Gather Facts"
+  hosts: usa
+  gather_facts: true
+  gather_subset:
+    - all
+  connection: network_cli
+
+  tasks:
+    - name: "Task 1"
+      ansible.builtin.debug:
+        msg: "{{ ansible_facts }}"
