@@ -1,0 +1,10 @@
+---
+
+- name: "Print some encrypted stuff"
+  hosts: uk
+  gather_facts: false
+
+  tasks:
+    - name: "Task 1 - decrypt and print"
+      ansible.builtin.debug:
+        msg: "{{ snmp_stuff }}"

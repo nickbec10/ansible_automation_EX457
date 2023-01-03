@@ -3,12 +3,14 @@
 - name: "Variable substitution test"
   hosts: usa
   gather_facts: false
-  gather_subset: all
+  gather_subset:
+    - all
   connection: network_cli
 
   tasks:
     - name: "Task 1"
       cisco.ios.ios_config:
-        src: "eigrp/{{ eigrp_style }}.j2"
-      debug: 
+        # src: "eigrp/{{ eigrp_style }}.j2"
+        src: bgp.j2
+      # ansible.builtin.debug:
         # msg: "{{ item.key }} has a value of {{ item.value.ipv4.0.address }}"

@@ -1,0 +1,20 @@
+---
+
+- name: "Register playbook"
+  hosts: "10.0.0.10"
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: "Push config"
+      cisco.ios.ios_config:
+        src: ntp.j2
+      notify: ntp_handler_example
+      register: ntp_results
+
+
+  handlers:
+    - name: "Handler 1 - Check for NTP updates"
+      listen: ntp_handler_example
+      ansible.builtin.debug:
+        msg: "{{ ntp_results }}"
