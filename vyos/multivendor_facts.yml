@@ -1,0 +1,33 @@
+---
+
+- name: Gathering info
+  hosts: all
+  # gather_facts: true
+  # gather_subset:
+  #   - all
+  connection: network_cli
+
+  tasks:
+    - name: "Pull Cisco facts"
+      cisco.ios.ios_facts:
+        gather_subset:
+          - config
+      register: ios_facts
+      when: "ansible_network_os == 'cisco.ios.ios'"
+
+    - name: "Pull VyOS facts"
+      vyos.vyos.vyos_facts:
+        gather_subset:
+          - config
+      register: vyos_facts
+      when: "ansible_network_os == 'vyos.vyos.vyos'"
+
+    - name: "Print Cisco output"
+      ansible.builtin.debug:
+        msg: "{{ ios_facts.ansible_facts.ansible_net_config.split('\n') }}"
+      when: "ansible_network_os == 'cisco.ios.ios'"
+
+    - name: "Print VyOS output"
+      ansible.builtin.debug:
+        msg: "{{ vyos_facts.ansible_facts.ansible_net_config[0].split('\n') }}"
+      when: "ansible_network_os == 'vyos.vyos.vyos'"

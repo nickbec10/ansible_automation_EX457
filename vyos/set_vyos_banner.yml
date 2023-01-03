@@ -1,0 +1,19 @@
+---
+
+- name: Set VyOS banner
+  hosts: 10.0.0.14
+  gather_facts: true
+  gather_subset:
+    - all
+  connection: network_cli
+
+  tasks:
+    - name: Set banner
+      vyos.vyos.vyos_banner:
+        banner: pre-login
+        text: "Not a Cisco router"
+        state: present
+
+    - name: Gather info and print
+      ansible.builtin.debug:
+        msg: "{{ ansible_facts }}"
