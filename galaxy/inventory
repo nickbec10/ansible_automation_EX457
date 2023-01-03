@@ -1,0 +1,14 @@
+[all]
+10.0.0.10
+10.0.0.11
+10.0.0.12
+
+[all:vars]
+ansible_network_os=cisco.ios.ios
+
+[usa]
+10.0.0.10
+10.0.0.11
+
+[uk]
+10.0.0.12

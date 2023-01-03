@@ -1,0 +1,21 @@
+---
+
+- name: "Play to configure EIGRP"
+  hosts: 10.0.0.10
+  connection: network_cli
+  vars:
+    - task_one_name: "different taks name from vars"
+
+  roles:
+    - eigrp_role
+
+  tasks:
+    - name: "Further verification"
+      cisco.ios.ios_command:
+        commands:
+          - "sh ip eigrp interface"
+      register: eigrp_int_output
+
+    - name: "Print verification"
+      ansible.builtin.debug:
+        msg: "{{ eigrp_int_output.stdout_lines }}"

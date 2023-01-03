@@ -1,0 +1,8 @@
+---
+
+snmp_stuff:
+  community: "myrwvalue"
+  server: 6.6.1.2
+  mode: "RW"
+  location: "Oregon"
+  contact: "Nick Becker"

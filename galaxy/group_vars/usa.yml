@@ -1,0 +1,5 @@
+---
+
+ntp: "5.5.5.5"
+super_secret_bgp: 9988
+ninja_ospf: "5"

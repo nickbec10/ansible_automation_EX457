@@ -1,0 +1,29 @@
+---
+
+- name: "Testing genie"
+  hosts: 10.0.0.10
+  connection: network_cli
+
+  tasks:
+    - name: "Task 1 - send a show command"
+      cisco.ios.ios_command:
+        commands: "show ip route"
+      register: show_route_output
+      #   commands: "show version"
+      # register: show_ver_output
+
+    # - name: "Task 2 - Parse show command"
+    #   ansible.builtin.set_fact:
+    #     parsed_data: >-
+    #       {{ show_ver_output.stdout[0] | clay584.genie.parse_genie(
+    #         command='show version', os='ios')}}
+
+    - name: "Task 2 - Parse show command"
+      ansible.builtin.set_fact:
+        parsed_data: >-
+          {{ show_route_output.stdout[0] | clay584.genie.parse_genie(
+            command='show ip route', os='ios')}}
+
+    - name: "Task 3 - Print output"
+      ansible.builtin.debug:
+        msg: "{{ parsed_data }}"
