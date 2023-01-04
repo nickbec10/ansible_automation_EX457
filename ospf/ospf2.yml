@@ -1,0 +1,28 @@
+---
+
+- name: "OSPF configs via Jinja"
+  hosts: all
+  connection: network_cli
+
+  tasks:
+    - name: "Configure VyOS OSPF config"
+      vyos.vyos.vyos_config:
+        src: "{{ ansible_network_os }}-ospf.j2"
+      register: vyos_output
+      when: "ansible_network_os == 'vyos.vyos.vyos'"
+
+    - name: "Print VyOS OSPF config"
+      ansible.builtin.debug:
+        msg: "{{ vyos_output }}"
+      when: "ansible_network_os == 'vyos.vyos.vyos'"
+
+    - name: "Configure Cisco OSPF config"
+      cisco.ios.ios_config:
+        src: "{{ ansible_network_os }}-ospf.j2"
+      register: ios_output
+      when: "ansible_network_os == 'cisco.ios.ios'"
+
+    - name: "Print Cisco OSPF config"
+      ansible.builtin.debug:
+        msg: "{{ ios_output }}"
+      when: "ansible_network_os == 'cisco.ios.ios'"

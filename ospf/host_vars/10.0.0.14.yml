@@ -1,0 +1,9 @@
+---
+
+ospf:
+  rid: 3.3.3.3
+  networks:
+    - network: 10.1.3.0/30
+      area: 0
+    - network: 3.3.3.3/32
+      area: 33
