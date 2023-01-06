@@ -146,14 +146,14 @@ ssh -o KexAlgorithms=+diffie-hellman-group-exchange-sha1 -c aes256-cbc developer
 ```
 
 
-### Basic config for routers
+### Basic config for routers (developer/C1sco12345)
 ```
 conf t
 no service call-home 
 no call-home
-hostname R3
+hostname R1
 int e1/3
-ip address 10.0.0.12 255.255.255.0
+ip address 10.0.0.10 255.255.255.0
 no shut
 ip domain-name gns3.local
 crypto key gen rsa mod 1024
@@ -167,7 +167,7 @@ exit
 wr mem
 ```
 
-### Basic config for switches
+### Basic config for switches (developer/C1sco12345)
 ```
 conf t
 hostname S1
@@ -176,7 +176,7 @@ exit
 int vlan 100
 ip address 10.0.0.20 255.255.255.0
 no shut
-int range gi1/0 - 3
+int range e1/0 - 3
 switchport access vlan 100
 ip domain-name gns3.local
 crypto key gen rsa mod 1024
@@ -190,3 +190,31 @@ exit
 wr mem
 ```
 
+### Basic config for vyos (vyos/vyos)
+```
+conf
+set system host-name V1
+set system domain-name gns3.local
+set interfaces ethernet eth6 address 10.0.0.14/24
+set interfaces ethernet eth0 address 10.1.3.2/30
+set interfaces ethernet eth1 address 10.1.5.1/30
+set service ssh port '22'
+commit
+save
+```
+
+### Basic config for arista (admin)
+```
+enable
+zerotouch cancel
+enable
+conf t
+hostname A1
+int management 1
+ip address 10.0.0.30/24
+no shut
+exit
+ip route 0.0.0.0/0 10.0.0.1
+wr
+exit
+```
