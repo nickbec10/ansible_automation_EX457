@@ -1,0 +1,27 @@
+---
+
+- name: "VLAN interface configs via Jinja"
+  hosts: vyos
+  connection: network_cli
+
+  tasks:
+    - name: Create vlan
+      vyos.vyos.vyos_vlan:
+        aggregate:
+          - vlan_id: 10
+            name: TEN
+            interfaces: eth3
+            state: present
+          - vlan_id: 33
+            name: THIRTYTHREE
+            interfaces: eth4
+            state: present
+          - vlan_id: 44
+            name: FORTYFOUR
+            interfaces: eth5
+            state: present
+      register: vyos_output
+
+    - name: "Print Cisco config"
+      ansible.builtin.debug:
+        msg: "{{ vyos_output }}"

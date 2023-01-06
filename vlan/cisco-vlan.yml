@@ -1,0 +1,24 @@
+---
+
+- name: "VLAN configs via Jinja"
+  hosts: cisco
+  connection: network_cli
+
+  tasks:
+    - name: "Configure Cisco VLAN config"
+      cisco.ios.ios_vlans:
+        config:
+          - name: FIVE
+            vlan_id: 5
+            state: active
+            shutdown: disabled
+          - name: TEN
+            vlan_id: 10
+            state: active
+            shutdown: disabled
+        state: merged
+      register: ios_output
+
+    - name: "Print Cisco config"
+      ansible.builtin.debug:
+        msg: "{{ ios_output }}"

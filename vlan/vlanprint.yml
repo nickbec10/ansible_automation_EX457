@@ -1,0 +1,9 @@
+---
+
+- name: "Print config variables"
+  hosts: 10.0.0.20
+  connection: network_cli
+
+  tasks:
+    - name: "Configure Cisco VLAN and print variables"
+      ansible.builtin.template: src={{ ansible_network_os }}-vlan.j2 dest=s1.conf
