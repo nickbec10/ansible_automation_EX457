@@ -214,6 +214,9 @@ int management 1
 ip address 10.0.0.30/24
 no shut
 exit
+management api http-commands
+no shutdown
+exit
 ip route 0.0.0.0/0 10.0.0.1
 wr
 exit
