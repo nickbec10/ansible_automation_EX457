@@ -1,0 +1,20 @@
+---
+
+vlans: 
+  interfaces:
+  - interface: e2/0
+    mode: access
+    vlan: 5
+  - interface: e2/1
+    mode: access
+    vlan: 10
+  - interface: e0/1
+    mode: trunk
+
+  vlan:
+    - number: 5
+      name: five
+      svi: "192.168.5.1 255.255.255.0"
+    - number: 10
+      name: ten
+      svi: "192.168.10.1 255.255.255.0"

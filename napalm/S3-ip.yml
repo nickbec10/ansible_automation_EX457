@@ -1,0 +1,7 @@
+---
+
+- get_interfaces_ip:
+    Vlan100:
+        ipv4:
+            10.0.0.22:
+                prefix_length: 24

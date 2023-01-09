@@ -1,0 +1,13 @@
+---
+
+bgp: 
+  asn: "1"
+  rid: "1.1.1.1"
+  neighbors:
+    - neighbor: "10.1.2.2"
+      peer_asn: "2"
+  networks:
+    - network: "99.99.99.99"
+      mask: "255.255.255.255"
+    - network: "100.100.100.100"
+      mask: "255.255.255.255"

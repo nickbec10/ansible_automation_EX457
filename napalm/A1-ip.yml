@@ -1,0 +1,8 @@
+---
+
+- get_interfaces_ip:
+    Management1:
+        ipv4:
+            10.0.0.30:
+                prefix_length: 24
+        ipv6: {}

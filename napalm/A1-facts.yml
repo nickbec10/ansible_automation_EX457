@@ -1,0 +1,8 @@
+---
+
+- get_facts:
+    hostname: A1
+    model: vEOS-lab
+    os_version: 4.29.1F-29834883.4291F
+    serial_number: D089AE09E9D882E4EC59947C7927ADBC
+    vendor: Arista

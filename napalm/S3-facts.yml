@@ -1,0 +1,6 @@
+---
+
+- get_facts:
+    hostname: S45
+    serial_number: '2052102'
+    vendor: Cisco
