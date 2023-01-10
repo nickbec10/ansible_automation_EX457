@@ -1,0 +1,136 @@
+Using 1813 out of 8192 bytes
+!
+
+!
+version 15.1
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname S3
+!
+boot-start-marker
+boot-end-marker
+!
+!
+logging discriminator EXCESS severity drops 6 msg-body drops EXCESSCOLL 
+logging buffered 50000
+logging console discriminator EXCESS
+enable secret 4 Uhg.J/WfOQmWlmVfy08NJsnfQBtVkgur4pkX9ALhKYA
+!
+username developer privilege 15 secret 4 Uhg.J/WfOQmWlmVfy08NJsnfQBtVkgur4pkX9ALhKYA
+no aaa new-model
+no ip icmp rate-limit unreachable
+!
+ip cef
+!
+!
+no ip domain-lookup
+ip domain-name gns3.local
+no ipv6 cef
+ipv6 multicast rpf use-bgp
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+!
+!
+!
+vlan internal allocation policy ascending
+!
+ip tcp synwait-time 5
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+ duplex auto
+!
+interface Ethernet0/1
+ duplex auto
+!
+interface Ethernet0/2
+ duplex auto
+!
+interface Ethernet0/3
+ duplex auto
+!
+interface Ethernet1/0
+ duplex auto
+!
+interface Ethernet1/1
+ duplex auto
+!
+interface Ethernet1/2
+ duplex auto
+!
+interface Ethernet1/3
+ duplex auto
+!
+interface Ethernet2/0
+ duplex auto
+!
+interface Ethernet2/1
+ duplex auto
+!
+interface Ethernet2/2
+ duplex auto
+!
+interface Ethernet2/3
+ duplex auto
+!
+interface Ethernet3/0
+ duplex auto
+!
+interface Ethernet3/1
+ duplex auto
+!
+interface Ethernet3/2
+ duplex auto
+!
+interface Ethernet3/3
+ switchport access vlan 100
+ duplex auto
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan100
+ ip address 10.0.0.22 255.255.255.0
+!
+!
+no ip http server
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line vty 0 4
+ login local
+ transport input ssh
+!
+end

@@ -1,9 +1,11 @@
 [all]
-S3 ansible_host=10.0.0.22
 A1 ansible_host=10.0.0.30
+S3 ansible_host=10.0.0.22
+R3 ansible_host=10.0.0.12
 
 [cisco]
 S3
+R3
 
 [arista]
 A1

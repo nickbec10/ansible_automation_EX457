@@ -1,0 +1,43 @@
+---
+
+- name: "Test playbook to restore configs"
+  hosts: localhost
+
+  tasks:
+    - name: "Collect device facts from localhost"
+      ansible.builtin.setup:
+        filter:
+          - "ansible_date_time"
+
+    - name: "Save info as variable"
+      ansible.builtin.set_fact:
+        TD: "{{ ansible_date_time.date }}"
+
+- name: "Restore configs"
+  hosts: all
+  connection: network_cli
+
+  tasks:
+    - name: "Create a diff directory"
+      file:
+        path: "diffs/{{ hostvars.localhost.TD }}/{{ inventory_hostname }}"
+        state: directory
+      run_once: false
+
+    - name: "Push configurations to remote devices"
+      napalm_install_config:
+        hostname: "{{ ansible_host }}"
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        dev_os: "{{ napalm_platform }}"
+        optional_args: "{{ opt_args }}"
+        config_file: "{{ inventory_hostname }}-running-config.txt"
+        commit_changes: true
+        replace_config: true
+        get_diffs: true
+        diff_file: "diffs/{{ hostvars.localhost.TD }}/{{ inventory_hostname }}/{{ inventory_hostname }}-diffs.txt"
+      register: result
+
+    - name: "print configs"
+      ansible.builtin.debug:
+        msg: "{{ result }}"

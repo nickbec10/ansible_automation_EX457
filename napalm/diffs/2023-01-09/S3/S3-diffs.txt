@@ -1,0 +1,7 @@
++hostname S3
+-hostname sdivoaisvo
+-archive
+ -path unix:archive
+-ip scp server enable
+-router ospf 3
+ -router-id 4.5.6.7

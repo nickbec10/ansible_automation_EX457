@@ -1,0 +1,61 @@
+---
+
+- name: "Test playbook to collect facts"
+  hosts: localhost
+
+  tasks:
+    - name: "Collect device facts from localhost"
+      ansible.builtin.setup:
+        filter:
+          - "ansible_date_time"
+
+    - name: "Recording variable"
+      ansible.builtin.set_fact:
+        TD: "{{ ansible_date_time.date }}"
+
+    - name: "Creating Directory structure"
+      ansible.builtin.file:
+        path: "./backups/{{ TD }}"
+        state: directory
+      run_once: true
+
+- name: "Backup configs"
+  hosts: all
+  connection: network_cli
+
+  tasks:
+    - name: "Pull configurations from remote devices"
+      napalm_get_facts:
+        hostname: "{{ ansible_host }}"
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        dev_os: "{{ napalm_platform }}"
+        optional_args: "{{ opt_args }}"
+        filter: ["config"]
+      register: result
+
+    # - name: "print configs"
+    #   ansible.builtin.debug:
+    #     msg: "{{ result }}"
+          
+    - name: "Create startup-config dir"
+      ansible.builtin.file:
+        path: backups/{{ hostvars.localhost.TD }}/startup-config
+        state: directory
+      run_once: true
+
+    - name: "Create running-config dir"
+      ansible.builtin.file:
+        path: backups/{{ hostvars.localhost.TD }}/running-config
+        state: directory
+      run_once: true
+
+    - name: "Copy startup-config to disk"
+      ansible.builtin.copy:
+        content: "{{ result.ansible_facts.napalm_config.startup }}"
+        dest: backups/{{ hostvars.localhost.TD }}/startup-config/{{ inventory_hostname }}-startup-config.txt
+
+    - name: "Copy running-config to disk"
+      ansible.builtin.copy:
+        content: "{{ result.ansible_facts.napalm_config.running }}"
+        dest: backups/{{ hostvars.localhost.TD }}/running-config/{{ inventory_hostname }}-running-config.txt
