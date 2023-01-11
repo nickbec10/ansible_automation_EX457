@@ -1,0 +1,65 @@
+---
+
+ospf_config:
+  Cisco-IOS-XE-native:router:
+    Cisco-IOS-XE-ospf:router-ospf:
+      ospf:
+        process-id:
+          - id: 1
+            network:
+              - area: 51
+                ip: 1.1.1.1
+                wildcard: 0.0.0.0
+              - area: 0
+                ip: 10.0.0.0
+                wildcard: 0.0.0.255
+              - area: 0
+                ip: 172.16.0.0
+                wildcard: 0.0.255.255
+            router-id: 1.1.1.1
+
+acl_config:
+  Cisco-IOS-XE-native:access-list:
+    Cisco-IOS-XE-acl:extended:
+      - access-list-seq-rule:
+          - ace-rule:
+              action: deny
+              dscp: ef
+              dst-any:
+                - null
+              host: 8.8.8.8
+              protocol: ip
+            sequence: '10'
+          - ace-rule:
+              action: deny
+              any:
+                - null
+              dst-host: 1.2.3.4
+              protocol: ip
+            sequence: '20'
+          - ace-rule:
+              action: deny
+              any:
+                - null
+              dst-host: 5.5.5.5
+              protocol: ip
+            sequence: '25'
+          - ace-rule:
+              action: deny
+              dst-any:
+                - null
+              dst-eq: telnet
+              ipv4-address: 172.16.0.0
+              mask: 0.0.255.255
+              protocol: tcp
+            sequence: '30'
+          - ace-rule:
+              action: permit
+              any:
+                - null
+              dst-any:
+                - null
+              protocol: ip
+            sequence: '40'
+        name: TEST-2
+      - name: meraki-fqdn-dns

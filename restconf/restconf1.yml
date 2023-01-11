@@ -1,0 +1,22 @@
+---
+
+- name: "Play 1 - Testing RESTCONF"
+  hosts: 10.0.0.18
+  connection: local
+
+  tasks:
+    - name: "Task 1 - Pull some info"
+      ansible.builtin.uri:
+        url: "https://{{ ansible_host }}/restconf/data/native/ip/access-list"
+        user: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        method: GET
+        return_content: true
+        headers:
+          Accept: "application/yang-data+json"
+        validate_certs: false
+      register: result
+
+    - name: "Print result"
+      ansible.builtin.debug:
+        msg: "{{ result.json }}"
