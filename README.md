@@ -146,7 +146,26 @@ ssh -o KexAlgorithms=+diffie-hellman-group-exchange-sha1 -c aes256-cbc developer
 ```
 
 
-### Basic config for routers (developer/C1sco12345)
+### Basic config for IOS routers (developer/C1sco12345)
+```
+conf t
+hostname R1
+int e1/3
+ip address 10.0.0.10 255.255.255.0
+no shut
+ip domain-name gns3.local
+crypto key gen rsa mod 1024
+username developer priv 15 secret C1sco12345
+enable secret C1sco12345
+line vty 0 4
+login local
+transport input ssh
+exit
+exit
+wr mem
+```
+
+### Basic config for IOS-XE routers (developer/C1sco12345)
 ```
 conf t
 no service call-home 
@@ -159,6 +178,9 @@ ip domain-name gns3.local
 crypto key gen rsa mod 1024
 username developer priv 15 secret C1sco12345
 enable secret C1sco12345
+restconf
+ip http secure-server
+ip http authentication local
 line vty 0 4
 login local
 transport input ssh
@@ -191,6 +213,22 @@ wr mem
 ```
 
 ### Basic config for vyos (vyos/vyos)
+First you must install the VyOS image
+   1. Create template with VyOS gns3 appliance and VyOS iso
+   2. After booting run 'install image'
+   3. Run through wizard selecting the defaults
+   4. When installation prompts which file to choose for config boot, choose second option: /opt/vyatta/etc/config.boot.default
+   5. When installation finishes poweroff
+   6. Note location of GNS3 project folder
+   7. Exit GNS3
+   8. ssh to host server and cd to project folder
+   9. su gns3
+   10. qemu-img commit virtioa.qcow2
+   11. cp virtioa.qcow2 /home/gns3/GNS3/images/QEMU/vyos<version>.qcow2
+   12. chmod 700 /home/gns3/GNS3/images/QEMU/vyos<version>.qcow2
+   13. Open GNS3 back up and locate the VyOS template
+   14. Edit HDD tab to set Disk image to vyos<version>.qcow2 and Disk interface to virtio
+   15. Edit CD/DVD to remove the iso
 ```
 conf
 set system host-name V1
