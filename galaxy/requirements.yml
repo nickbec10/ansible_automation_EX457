@@ -1,0 +1,8 @@
+---
+
+# Install in venv first 'pip install ansible pyats genie colorama'
+# Install with 'ansible-galaxy install -r requirements.yml'
+collections:
+  - name: clay584.genie
+    type: galaxy
+    version: 0.1.11
